@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body></body>
+  <script type="text/javascript">
+    class dataStore {
+      constructor() {
+        // Check if an instance of dataStore already exists
+        if (!dataStore.instance) {
+          this._data = [];
+          dataStore.instance = this;
+        }
+
+        return dataStore.instance;
+      }
+
+      add(datum) {
+        this._data.push(datum);
+      }
+
+      get(id) {
+        return this._data.find((item) => item.id === id);
+      }
+    };
+
+    const dataStoreInstance = new dataStore();
+    // Freezing the object stops any properties from being added/removed to it
+    Object.freeze(dataStoreInstance);
+
+    dataStoreInstance.add({id: 0, name: 'Store Item 0'});
+    dataStoreInstance.add({id: 1, name: 'Store Item 1'});
+    const secondItem = dataStoreInstance.get(1);
+
+    // Instance includes objects added
+    console.log('dataStoreInstance');
+    console.log(dataStoreInstance);
+    console.log('secondItem');
+    console.log(secondItem);
+
+    // Try to instantiate a new instance of dataStore
+    const dataStoreInstance2 = new dataStore();
+    // dataStoreInstance2 already contains the values added to the first instance
+    console.log('dataStoreInstance2');
+    console.log(dataStoreInstance2);
+
+    dataStoreInstance.add({id: 2, name: 'Store Item 2'});
+    // dataStoreInstance2 will also be updated with changes to the first instance
+    console.log('dataStoreInstance2 later');
+    console.log(dataStoreInstance2);
+  </script>
+</html>
