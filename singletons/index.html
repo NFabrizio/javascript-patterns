@@ -30,29 +30,40 @@
       }
     };
 
+    console.log('Create a new dataStore instance called dataStoreInstance.');
     const dataStoreInstance = new dataStore();
     // Freezing the object stops any properties from being added/removed/changed
+    console.log('Freeze dataStoreInstance.');
     Object.freeze(dataStoreInstance);
 
+    console.log('Add some data to dataStoreInstance.');
     dataStoreInstance.add({id: 0, name: 'Store Item 0'});
     dataStoreInstance.add({id: 1, name: 'Store Item 1'});
     const secondItem = dataStoreInstance.get(1);
 
     // Instance includes objects added
-    console.log('dataStoreInstance');
+    console.log('Initial dataStoreInstance:');
     console.log(dataStoreInstance);
-    console.log('secondItem');
+    console.log('Second item in dataStoreInstance:');
     console.log(secondItem);
 
     // Try to instantiate a new instance of dataStore
+    console.log('Create a new dataStore instance called dataStoreInstance2.');
     const dataStoreInstance2 = new dataStore();
     // dataStoreInstance2 already contains the values added to the first instance
-    console.log('dataStoreInstance2');
+    console.log('Initial dataStoreInstance2 already contains changes to dataStoreInstance because just like Jet Li, "There can be only one.":');
     console.log(dataStoreInstance2);
 
+    console.log('Add another item to dataStoreInstance.');
     dataStoreInstance.add({id: 2, name: 'Store Item 2'});
     // dataStoreInstance2 will also be updated with changes to the first instance
-    console.log('dataStoreInstance2 later');
+    console.log('dataStoreInstance2 contains changes to dataStoreInstance because they are both pointing to the same instance:');
     console.log(dataStoreInstance2);
+
+    console.log('Add an item to dataStoreInstance2.');
+    dataStoreInstance.add({id: 3, name: 'Store Item 3'});
+
+    console.log('dataStoreInstance contains changes to dataStoreInstance2 because they are both pointing to the same instance:');
+    console.log(dataStoreInstance);
   </script>
 </html>
