@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <title></title>
   </head>
-  <body></body>
+  <body>
+    <h1>JavaScript Singletons Example Using ES2015 Classes</h1>
+    <p>Open the browser developer tools to see the magic of the singleton pattern
+      in action.</p>
+  </body>
   <script type="text/javascript">
     class dataStore {
       constructor() {
@@ -27,7 +31,7 @@
     };
 
     const dataStoreInstance = new dataStore();
-    // Freezing the object stops any properties from being added/removed to it
+    // Freezing the object stops any properties from being added/removed/changed
     Object.freeze(dataStoreInstance);
 
     dataStoreInstance.add({id: 0, name: 'Store Item 0'});

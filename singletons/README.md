@@ -25,8 +25,8 @@ Below are the instructions for setting up this example.
 
 ## Application Use  
 Open the singletons/index.html file in your web browser on your local machine. Since
-this is an example of a Javascript pattern, it is not set up to display anything
-in the browser. The real magic happens in the developer tools console panel, so
+this is an example of a Javascript pattern, it is set up to display some basic
+information only. The real magic happens in the developer tools console panel, so
 open the developer tools by either right clicking somewhere on the web page and
 selecting "Inspect" or by using the keyboard shortcut command + option + J (for
 Mac users). You should see the data from the console logs in the Console panel
