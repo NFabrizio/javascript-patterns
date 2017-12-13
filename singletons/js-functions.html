@@ -11,9 +11,16 @@
   </body>
   <script type="text/javascript">
     function dataStore() {
+      // Set up a variable for caching the data
       let instance;
 
-      // Rewrite the constructor so that it will return the instance no matter what
+      /**
+       * The first time the parent function is instantiated, the original constructor
+       * will be called. Every time after that, this rewritten constructor will
+       * be called and will return the existing instance. This ensures that every
+       * instance of the parent function will be the same as they will be pointing
+       * to the first instance created.
+       */
       dataStore = function dataStore() {
         if (!instance) {
           instance = {
@@ -23,7 +30,7 @@
         return instance;
       }
 
-      // Bring the prototype over
+      // Copy the existing prototype over
       dataStore.prototype = this;
 
       // Set up the instance
