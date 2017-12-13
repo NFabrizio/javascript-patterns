@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>JavaScript Singletons Example Using JavaScript Functions</h1>
+    <p>Open the browser developer tools to see the magic of the singleton pattern
+      in action.</p>
+  </body>
+  <script type="text/javascript">
+    function dataStore() {
+      let instance;
+
+      // Rewrite the constructor so that it will return the instance no matter what
+      dataStore = function dataStore() {
+        if (!instance) {
+          instance = {
+            _data: []
+          };
+        }
+        return instance;
+      }
+
+      // Bring the prototype over
+      dataStore.prototype = this;
+
+      // Set up the instance
+      instance = new dataStore();
+
+      // Point the instance constructor to the dataStore constructor
+      instance.constructor = dataStore;
+
+      // Set up methods to update and get _data
+      instance.add = function add(datum) {
+        instance._data.push(datum);
+      };
+
+      instance.get = function get(id) {
+        return instance._data.find((item) => item.id === id);
+      };
+
+      return instance;
+    };
+
+    console.log('Create a new dataStore instance called dataStoreInstance.');
+    const dataStoreInstance = new dataStore();
+
+    console.log('Add some data to dataStoreInstance.');
+    dataStoreInstance.add({id: 0, name: 'Store Item 0'});
+    dataStoreInstance.add({id: 1, name: 'Store Item 1'});
+    const secondItem = dataStoreInstance.get(1);
+
+    // Instance includes objects added
+    console.log('Initial dataStoreInstance:');
+    console.log(dataStoreInstance);
+    console.log('Second item in dataStoreInstance:');
+    console.log(secondItem);
+
+    // Try to instantiate a new instance of dataStore
+    console.log('Create a new dataStore instance called dataStoreInstance2.');
+    const dataStoreInstance2 = new dataStore();
+    // dataStoreInstance2 already contains the values added to the first instance
+    console.log('Initial dataStoreInstance2 already contains changes to dataStoreInstance because just like Jet Li, "There can be only one.":');
+    console.log(dataStoreInstance2);
+
+    console.log('Add another item to dataStoreInstance.');
+    dataStoreInstance.add({id: 2, name: 'Store Item 2'});
+    // dataStoreInstance2 will also be updated with changes to the first instance
+    console.log('dataStoreInstance2 contains changes to dataStoreInstance because they are both pointing to the same instance:');
+    console.log(dataStoreInstance2);
+
+    console.log('Add an item to dataStoreInstance2.');
+    dataStoreInstance.add({id: 3, name: 'Store Item 3'});
+
+    console.log('dataStoreInstance contains changes to dataStoreInstance2 because they are both pointing to the same instance:');
+    console.log(dataStoreInstance);
+  </script>
+</html>
