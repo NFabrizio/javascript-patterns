@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>JavaScript Factory Pattern Example Using JavaScript Functions</h1>
+    <p>Open the browser developer tools to see the magic of the factory pattern
+      in action.</p>
+  </body>
+  <script type="text/javascript">
+    // Initiate the base parent constructor
+    function DonutMaker() {};
+
+    // Set up a method to call to list the ingredients
+    DonutMaker.prototype.listIngredients = function () {
+      return `I am made of ${this.ingredients}`;
+    };
+
+    // Add a static factory method
+    DonutMaker.factory = function (type, input) {
+      // Throw if constructor doesn't exist since we can't do anything with it
+      if (typeof DonutMaker[type] !== 'function') {
+        throw {
+          name: 'Error',
+          message: `${type} does not exist.`
+        };
+      }
+
+      // Make sure the constructor inherits the parent prototype only once
+      if (typeof DonutMaker[type].prototype.listIngredients !== 'function') {
+        DonutMaker[type].prototype = new DonutMaker();
+      }
+
+      // Create a new instance of the constructor
+      return new DonutMaker[type](input);
+    };
+
+    // Add some DonutMaker methods
+    DonutMaker.JellyFilled = function (flavor) {
+      this.ingredients = `${flavor} jelly`;
+    };
+    DonutMaker.Cake = function (flavor) {
+      this.ingredients = `${flavor} cake`;
+    };
+    DonutMaker.Seasonal = function (flavor) {
+      this.ingredients = `${flavor} spices`;
+    };
+
+    // Test the donut factory
+    console.log('Time to make the donuts.');
+    console.log('Make strawberry jelly.');
+    const strawberryJelly = DonutMaker.factory('JellyFilled', 'strawberry');
+    console.log('Make grape jelly.');
+    const grapeJelly = DonutMaker.factory('JellyFilled', 'grape');
+    console.log('Make chocolate cake.');
+    const chocolateCake = DonutMaker.factory('Cake', 'chocolate');
+    console.log('Make pumpkin spice.');
+    const pumpkinSpice = DonutMaker.factory('Seasonal', 'pumpkin');
+    console.log('Make cinnamon.');
+    const cinnamon = DonutMaker.factory('Seasonal', 'cinnamon');
+
+    console.log('Check strawberry jelly ingredients:');
+    console.log(strawberryJelly.listIngredients());
+    console.log('Check grape jelly ingredients:');
+    console.log(grapeJelly.listIngredients());
+    console.log('Check chocolate cake ingredients:');
+    console.log(chocolateCake.listIngredients());
+    console.log('Check pumpkin spice ingredients:');
+    console.log(pumpkinSpice.listIngredients());
+    console.log('Check cinnamon ingredients:');
+    console.log(cinnamon.listIngredients());
+  </script>
+</html>
